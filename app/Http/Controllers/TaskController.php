@@ -43,7 +43,12 @@ class TaskController extends Controller
                 throw new Exception('Description cannot be empty !!');
             }
             $task = new Tasks();
-            $statusId = Status::where('Name', $request->status)->first()->StatusId;
+            $status = 'Pending';
+            if($request->status != '')
+            {
+                $status = $request->status;
+            }
+            $statusId = Status::where('Name', $status)->first()->StatusId;
             $task->Description = $request->description;
             $task->StatusId = $statusId;
             $task->CreateTime = $currTime;
