@@ -1,26 +1,33 @@
-Pre-requisites: PHP version 7.1
+Pre-requisites: PHP version 7.1, Chrome Browser
 
-The relational database used is sqlite and is located in this folder: /storage/databases/todo.sqlite. This database has two tables called Tasks and Status to store the todo items. Status is a master table with two keys - 'Pending' and 'Available'. The Tasks table has a foreign key to Status table.
+Overview:
+
+The solution has a REST API developed using an MVC framework and a javascript client that consumes this REST API. The server and client are located in the same solution folder.
+
+The relational database used is sqlite and is located in this folder: /storage/databases/todo.sqlite. This database has two tables called Tasks and Status to store the todo items. Status is a master table with two keys - 'Pending' and 'Available'. This allows room for additional states going forward. The Tasks table has a foreign key to Status table. We can create additional tables to host other aspects of the task such as Location, Due date, Reminder settings, etc in their own tables and add the foreign key to the Tasks table.
 
 Code Structure:
 
 Server:
-1. The REST end points for the api is defined in routes/api.php to point to methods in the Task controller
+
+1. The REST end points for the api is defined in routes/api.php to point to methods in the TaskController.php class.
 2. The TaskController (app/Http/Controllers/TaskController.php) has methods to handle all the CRUD operations on a todo task
-3. The ORM models for Tasks and Status tables are available in 'app/Http/Models'. These models are based on the eloquent framework.
+3. The Eloquent based ORM models for Tasks and Status tables are available in 'app/Http/Models'. 
 4. The DTO's that are exported from the API are stored in the app/Http/DTO folder. There is only class here called Task.php and this is serialized to a json form by the # API call.'
 
 Client:
+
+Disclaimer: I am not an expert in javascript. I have copied the solution from todomvc.com and made changes to work wth the REST API instead of localStorage. The user interface has been tested on a Chrome browser.
+
 1. The client application is present inside public/todoapp folder. This client application is set as the home page through the routes/web.php class.
-2. This client application has been downloaded from todomvc.com.
-3. It has been modified to work with the REST api instead of the local storage.
 
 
 
 
 Steps to execute this solution:
+
 1. Clone the repository to a local folder
-2. Run the following command to start the embedded server: php artisan serve
+2. Run the following command to start the embedded server: "php artisan serve"
 3. The user interface can be accessed from the following url --> http://localhost:8000/. This user interface is fully functional to perform all CRUD operations on the todo list.
 
 API end points:
